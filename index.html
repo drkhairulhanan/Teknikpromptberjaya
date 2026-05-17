@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ms" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menguasai Google Gemini untuk Pentadbir Kesihatan</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Config for Custom Colors matching the presentation -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        gemini: {
+                            dark: '#1e293b', // Slate 800
+                            teal: '#14b8a6', // Teal 500
+                            lightTeal: '#ccfbf1', // Teal 50
+                            blue: '#3b82f6', // Blue 500
+                            green: '#22c55e', // Green 500
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+
+    <!-- Navigation / Header -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2 font-bold text-xl text-gemini-dark">
+                    <i data-lucide="sparkles" class="text-gemini-teal"></i>
+                    <span>Panduan Gemini PKD</span>
+                </div>
+                <div class="hidden md:flex space-x-4 text-sm font-medium text-slate-600">
+                    <a href="#pengenalan" class="hover:text-gemini-teal transition">Pengenalan</a>
+                    <a href="#prompt-sempurna" class="hover:text-gemini-teal transition">Prompt Sempurna</a>
+                    <a href="#teknik" class="hover:text-gemini-teal transition">4 Teknik</a>
+                    <a href="#integrasi" class="hover:text-gemini-teal transition">Integrasi & Masa</a>
+                    <a href="#keselamatan" class="hover:text-gemini-teal transition">Keselamatan</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="bg-gradient-to-br from-slate-900 to-teal-900 text-white py-20 px-4">
+        <div class="max-w-4xl mx-auto text-center space-y-6">
+            <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium mb-4">
+                Tahap: Asas (Beginner) | Instrumen Produktiviti Rasmi
+            </div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
+                Menguasai Google Gemini: <br>
+                <span class="text-teal-300">Teknik Prompting untuk Pentadbir Kesihatan</span>
+            </h1>
+            <p class="text-lg md:text-xl text-teal-50 max-w-2xl mx-auto">
+                Panduan Asas untuk Kakitangan Pejabat Kesihatan Daerah (PKD) Memaksimumkan Produktiviti Harian
+            </p>
+            <div class="pt-8">
+                <a href="#pengenalan" class="bg-teal-500 hover:bg-teal-400 text-white font-semibold py-3 px-8 rounded-full transition duration-300 shadow-lg shadow-teal-500/30 inline-flex items-center gap-2">
+                    Mula Belajar <i data-lucide="arrow-down" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Section: Pengenalan (Beban vs Penyelesaian) -->
+    <section id="pengenalan" class="py-16 px-4 max-w-6xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-8 items-stretch">
+            <!-- Beban Semasa -->
+            <div class="bg-slate-800 text-white rounded-2xl p-8 shadow-xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 -mt-4 -mr-4 text-slate-700 opacity-20">
+                    <i data-lucide="folder-archive" class="w-48 h-48"></i>
+                </div>
+                <h2 class="text-2xl font-bold mb-6 flex items-center gap-2 relative z-10">
+                    <i data-lucide="hourglass" class="text-red-400"></i> Beban Pentadbiran Semasa
+                </h2>
+                <ul class="space-y-4 relative z-10">
+                    <li class="flex items-start gap-3 bg-slate-700/50 p-3 rounded-lg border border-slate-600">
+                        <i data-lucide="search" class="w-5 h-5 mt-0.5 text-slate-300"></i>
+                        <span>Menyemak berpuluh muka surat Pekeliling KKM.</span>
+                    </li>
+                    <li class="flex items-start gap-3 bg-slate-700/50 p-3 rounded-lg border border-slate-600">
+                        <i data-lucide="file-signature" class="w-5 h-5 mt-0.5 text-slate-300"></i>
+                        <span>Menulis laporan panjang wabak (Denggi/Covid-19).</span>
+                    </li>
+                    <li class="flex items-start gap-3 bg-slate-700/50 p-3 rounded-lg border border-slate-600">
+                        <i data-lucide="mail" class="w-5 h-5 mt-0.5 text-slate-300"></i>
+                        <span>Menyusun dan merangka emel rasmi agensi.</span>
+                    </li>
+                    <li class="flex items-start gap-3 bg-slate-700/50 p-3 rounded-lg border border-slate-600">
+                        <i data-lucide="calendar-days" class="w-5 h-5 mt-0.5 text-slate-300"></i>
+                        <span>Merancang jadual dan kempen kesedaran komuniti.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Penyelesaian AI -->
+            <div class="bg-white border border-teal-100 rounded-2xl p-8 shadow-xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 -mt-4 -mr-4 text-teal-50 opacity-50">
+                    <i data-lucide="cpu" class="w-48 h-48"></i>
+                </div>
+                <h2 class="text-2xl font-bold mb-6 flex items-center gap-2 text-gemini-dark relative z-10">
+                    <i data-lucide="lightbulb" class="text-teal-500"></i> Penyelesaian Pintar: Gemini
+                </h2>
+                <p class="text-slate-600 leading-relaxed mb-6 text-lg relative z-10">
+                    Pembantu maya berasaskan <strong>Large Language Model (LLM)</strong> yang mampu membaca data, menganalisis konteks, dan menulis draf profesional dalam beberapa saat.
+                </p>
+                <div class="bg-teal-50 border-l-4 border-teal-500 p-4 rounded-r-lg relative z-10">
+                    <p class="text-teal-900 font-medium">
+                        AI tidak menggantikan anda; ia mempercepatkan tugas rutin anda.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fakta Prompt -->
+        <div class="mt-12 bg-blue-50 border border-blue-200 rounded-xl p-6 text-center max-w-4xl mx-auto shadow-sm">
+            <h3 class="font-bold text-blue-900 mb-2 flex items-center justify-center gap-2">
+                <i data-lucide="microscope" class="w-5 h-5"></i> Kajian Google
+            </h3>
+            <p class="text-blue-800">
+                Majoriti pengguna hanya menaip kurang dari 9 perkataan. Arahan (prompt) yang paling berjaya dan tepat mempunyai <strong>purata sekurang-kurangnya 21 perkataan</strong>.
+            </p>
+        </div>
+    </section>
+
+    <!-- Section: Prompt Sempurna -->
+    <section id="prompt-sempurna" class="py-16 bg-white px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4">Formula Prompt Sempurna</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">Gunakan 4 tonggak ini setiap kali anda berinteraksi dengan AI untuk hasil yang optimum.</p>
+            </div>
+
+            <!-- 4 Pillars Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                <!-- Peranan -->
+                <div class="bg-teal-50 rounded-xl p-6 border border-teal-100 shadow-sm hover:shadow-md transition">
+                    <div class="bg-teal-500 text-white w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="user-circle-2"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-teal-900 mb-2">1. PERANAN</h3>
+                    <p class="text-sm text-teal-800 font-medium mb-2">Siapa Gemini dalam situasi ini?</p>
+                    <p class="text-sm text-teal-700 bg-white p-3 rounded border border-teal-100">Cth: Anda ialah Pakar Analisis Data Kesihatan...</p>
+                </div>
+                <!-- Tugasan -->
+                <div class="bg-indigo-50 rounded-xl p-6 border border-indigo-100 shadow-sm hover:shadow-md transition">
+                    <div class="bg-indigo-500 text-white w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="clipboard-list"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-indigo-900 mb-2">2. TUGASAN</h3>
+                    <p class="text-sm text-indigo-800 font-medium mb-2">Apa tindakan yang perlu dilakukan?</p>
+                    <p class="text-sm text-indigo-700 bg-white p-3 rounded border border-indigo-100">Cth: Drafkan e-mel..., Ringkaskan jadual...</p>
+                </div>
+                <!-- Konteks -->
+                <div class="bg-blue-50 rounded-xl p-6 border border-blue-100 shadow-sm hover:shadow-md transition">
+                    <div class="bg-blue-500 text-white w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="map-pin"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-2">3. KONTEKS</h3>
+                    <p class="text-sm text-blue-800 font-medium mb-2">Apakah latar belakang situasi?</p>
+                    <p class="text-sm text-blue-700 bg-white p-3 rounded border border-blue-100">Cth: Ini untuk dibaca oleh pesakit warga emas...</p>
+                </div>
+                <!-- Format -->
+                <div class="bg-green-50 rounded-xl p-6 border border-green-100 shadow-sm hover:shadow-md transition">
+                    <div class="bg-green-500 text-white w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                        <i data-lucide="layout-template"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-green-900 mb-2">4. FORMAT</h3>
+                    <p class="text-sm text-green-800 font-medium mb-2">Bagaimana rupa hasil akhir?</p>
+                    <p class="text-sm text-green-700 bg-white p-3 rounded border border-green-100">Cth: Buat dalam jadual 3 lajur..., Senaraikan 'bullet points'...</p>
+                </div>
+            </div>
+
+            <!-- Anatomy of a Prompt (Example) -->
+            <div class="bg-slate-50 rounded-2xl p-6 md:p-10 border border-slate-200">
+                <h3 class="text-2xl font-bold text-center mb-8">Anatomi Prompt Lengkap</h3>
+                <div class="text-lg leading-relaxed bg-white p-8 rounded-xl shadow-inner border border-slate-100 relative">
+                    "Anda ialah <span class="bg-teal-100 text-teal-800 font-semibold px-2 py-1 rounded">Pegawai Pendidikan Kesihatan</span> (Peranan). 
+                    Tulis satu <span class="bg-indigo-100 text-indigo-800 font-semibold px-2 py-1 rounded">draf hebahan mesej WhatsApp</span> (Tugasan) tentang kempen suntikan vaksin pneumokokal percuma untuk kanak-kanak di bawah 2 tahun. 
+                    Sasaran audiens adalah <span class="bg-blue-100 text-blue-800 font-semibold px-2 py-1 rounded">ibu bapa di kawasan luar bandar</span> (Konteks). 
+                    Gunakan bahasa yang mudah difahami, <span class="bg-green-100 text-green-800 font-semibold px-2 py-1 rounded">letakkan emoji yang sesuai, dan hadkan kepada maksimum 100 patah perkataan</span> (Format)."
+                </div>
+                <div class="mt-6 flex items-start gap-3 text-sm text-slate-500 bg-slate-100 p-4 rounded-lg">
+                    <i data-lucide="stethoscope" class="w-5 h-5 text-teal-600 flex-shrink-0"></i>
+                    <p><strong>Nota Klinikal:</strong> Memberikan 'Deskripsi Kerja' yang lengkap kepada Gemini memastikan anda tidak perlu membetulkan draf berkali-kali.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: 4 Teknik Prompting -->
+    <section id="teknik" class="py-16 bg-slate-800 text-slate-50 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">4 Teknik Lanjutan (Pro)</h2>
+                <p class="text-slate-300 max-w-2xl mx-auto">Tingkatkan kemahiran anda dari pengguna asas kepada pakar produktiviti AI.</p>
+            </div>
+
+            <div class="space-y-12">
+                <!-- Teknik 1 & 2 Grid -->
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Teknik 1 -->
+                    <div class="bg-slate-700/50 rounded-2xl p-8 border border-slate-600">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="bg-teal-500 text-white p-3 rounded-xl"><i data-lucide="layers"></i></div>
+                            <h3 class="text-2xl font-bold text-white">Teknik 1: Kuasa Tiga</h3>
+                        </div>
+                        <p class="text-slate-300 mb-6">Jangan harapkan hasil sempurna pada cubaan pertama. Minta Gemini berikan variasi untuk mencetuskan idea.</p>
+                        <div class="bg-slate-800 p-4 rounded-lg border border-slate-600">
+                            <p class="text-sm font-mono text-teal-300">"Berikan saya 3 variasi draf emel memohon tambahan kakitangan:"</p>
+                            <ul class="mt-4 space-y-2 text-sm text-slate-400">
+                                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-500"></i> Variasi 1: Fokus data kesesakan</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-500"></i> Variasi 2: Fokus kualiti rawatan</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-500"></i> Variasi 3: Ringkas & tegas</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Teknik 2 -->
+                    <div class="bg-slate-700/50 rounded-2xl p-8 border border-slate-600">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="bg-indigo-500 text-white p-3 rounded-xl"><i data-lucide="git-commit"></i></div>
+                            <h3 class="text-2xl font-bold text-white">Teknik 2: Aliran Berbilang Langkah</h3>
+                        </div>
+                        <p class="text-slate-300 mb-6">Elakkan 'One-shot Wonder'. Pecahkan masalah kompleks kepada peristiwa penting (milestones) yang kecil.</p>
+                        <div class="space-y-3">
+                            <div class="bg-slate-800 p-3 rounded-lg border-l-4 border-indigo-500 text-sm">
+                                <span class="text-indigo-400 font-bold block mb-1">Langkah 1:</span> Senaraikan 5 punca kelewatan pendaftaran.
+                            </div>
+                            <div class="bg-slate-800 p-3 rounded-lg border-l-4 border-indigo-400 text-sm ml-4">
+                                <span class="text-indigo-300 font-bold block mb-1">Langkah 2:</span> Cadangkan penyelesaian khusus untuk punca #2.
+                            </div>
+                            <div class="bg-slate-800 p-3 rounded-lg border-l-4 border-indigo-300 text-sm ml-8">
+                                <span class="text-indigo-200 font-bold block mb-1">Langkah 3:</span> Tukar cadangan ke bentuk jadual 30 hari.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Teknik 3 & 4 Grid -->
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Teknik 3 -->
+                    <div class="bg-slate-700/50 rounded-2xl p-8 border border-slate-600">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="bg-blue-500 text-white p-3 rounded-xl"><i data-lucide="copy"></i></div>
+                            <h3 class="text-2xl font-bold text-white">Teknik 3: Memberi Contoh Corak</h3>
+                        </div>
+                        <p class="text-slate-300 mb-6">AI belajar pantas melalui contoh (One-Shot Prompting). Berikan templat rujukan untuk format yang seragam.</p>
+                        <div class="bg-slate-800 p-4 rounded-lg border border-slate-600 text-sm">
+                            <p class="text-slate-400 mb-2">Formatkan seperti gaya rujukan ini:</p>
+                            <p class="font-mono text-blue-300 bg-slate-900 p-2 rounded mb-3">[NAMA: Ali | KLINIK: Pergigian | MASA: 9 AM]</p>
+                            <p class="text-slate-400">Sekarang, formatkan data mentah ini: "Siti Sarah, Ibu & Anak, jam 10 pagi"</p>
+                        </div>
+                    </div>
+
+                    <!-- Teknik 4 -->
+                    <div class="bg-slate-700/50 rounded-2xl p-8 border border-slate-600">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="bg-green-500 text-white p-3 rounded-xl"><i data-lucide="filter"></i></div>
+                            <h3 class="text-2xl font-bold text-white">Teknik 4: Analisis Top-Down</h3>
+                        </div>
+                        <p class="text-slate-300 mb-6">Cara efisien menganalisis polisi KKM/jurnal. Mulakan secara meluas, mengecil kepada tindakan spesifik.</p>
+                        <div class="relative pl-6 border-l-2 border-green-500/30 space-y-4">
+                            <div class="relative">
+                                <div class="absolute -left-[31px] top-1 bg-green-500 w-4 h-4 rounded-full border-4 border-slate-700"></div>
+                                <p class="text-sm"><strong class="text-green-400">Tahap 1:</strong> Ringkasan menyeluruh Pekeliling.</p>
+                            </div>
+                            <div class="relative">
+                                <div class="absolute -left-[31px] top-1 bg-green-400 w-4 h-4 rounded-full border-4 border-slate-700"></div>
+                                <p class="text-sm"><strong class="text-green-300">Tahap 2:</strong> Implikasi utama terhadap klinik.</p>
+                            </div>
+                            <div class="relative">
+                                <div class="absolute -left-[31px] top-1 bg-green-300 w-4 h-4 rounded-full border-4 border-slate-700"></div>
+                                <p class="text-sm"><strong class="text-green-200">Tahap 3:</strong> 3 tindakan segera pentadbir minggu ini.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Integrasi & Matriks Kecekapan -->
+    <section id="integrasi" class="py-16 bg-slate-50 px-4">
+        <div class="max-w-6xl mx-auto">
+            
+            <!-- Integrasi '@' -->
+            <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden mb-12">
+                <div class="bg-teal-600 p-6 text-white flex items-center justify-between">
+                    <h2 class="text-2xl font-bold flex items-center gap-3">
+                        <i data-lucide="at-sign"></i> Integrasi Kuat: Memanggil Fail Kerja Anda
+                    </h2>
+                </div>
+                <div class="p-8 md:flex items-center gap-8">
+                    <div class="flex-1 mb-6 md:mb-0">
+                        <p class="text-lg text-slate-600 mb-4">
+                            Jangan buang masa <em>copy-paste</em> teks. Panggil fail rasmi anda terus dari Google Drive atau Docs untuk memastikan AI menggunakan data organisasi, bukan jawapan rawak internet.
+                        </p>
+                        <div class="bg-slate-100 p-4 rounded-lg font-mono text-sm border border-slate-300 inline-block w-full">
+                            <span class="text-teal-600 font-bold">@[Laporan_Denggi_Suku_Tahun.pdf]</span> Berdasarkan dokumen ini, buatkan satu draf emel ringkasan 5 isi penting.
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/3 flex justify-center">
+                        <div class="bg-teal-50 w-32 h-32 rounded-full flex items-center justify-center border-4 border-teal-100 shadow-inner">
+                            <i data-lucide="hard-drive" class="w-16 h-16 text-teal-500"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparison Table -->
+            <h2 class="text-2xl font-bold text-center mb-8 text-slate-800">Matriks Kecekapan: Manual vs AI</h2>
+            <div class="overflow-x-auto shadow-lg rounded-xl border border-slate-200">
+                <table class="w-full text-left bg-white">
+                    <thead class="bg-slate-800 text-white">
+                        <tr>
+                            <th class="p-4 font-semibold w-1/3">Tugas Pentadbiran</th>
+                            <th class="p-4 font-semibold w-1/3 border-l border-slate-700">Kaedah Manual (Sebelum)</th>
+                            <th class="p-4 font-semibold w-1/3 border-l border-slate-700 bg-teal-700">Dengan Gemini (Selepas)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 text-slate-700">
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-4 font-medium">Membaca & Merumus Pekeliling Baru (20 m/s)</td>
+                            <td class="p-4 border-l border-slate-200 text-red-600">
+                                <div class="flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4"></i> Membaca manual (Masa: 2 Jam)</div>
+                            </td>
+                            <td class="p-4 border-l border-slate-200 bg-teal-50/50 text-teal-700 font-medium">
+                                <div class="flex items-center gap-2"><i data-lucide="zap" class="w-4 h-4"></i> @[Fail] Senaraikan 5 poin (Masa: 2 Minit)</div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-4 font-medium">Menyediakan Teks Hebahan Media Sosial</td>
+                            <td class="p-4 border-l border-slate-200 text-red-600">
+                                <div class="flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4"></i> Mencari idea & menyusun (Masa: 45 Minit)</div>
+                            </td>
+                            <td class="p-4 border-l border-slate-200 bg-teal-50/50 text-teal-700 font-medium">
+                                <div class="flex items-center gap-2"><i data-lucide="zap" class="w-4 h-4"></i> Draf 3 variasi ayat promosi (Masa: 1 Minit)</div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-4 font-medium">Menyusun data pesakit mentah ke dalam jadual</td>
+                            <td class="p-4 border-l border-slate-200 text-red-600">
+                                <div class="flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4"></i> Menaip di Excel satu persatu (Masa: 1 Jam)</div>
+                            </td>
+                            <td class="p-4 border-l border-slate-200 bg-teal-50/50 text-teal-700 font-medium">
+                                <div class="flex items-center gap-2"><i data-lucide="zap" class="w-4 h-4"></i> Susun teks ke jadual 3 lajur (Masa: 30 Saat)</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Templat AI Alert -->
+            <div class="mt-8 bg-amber-50 border border-amber-200 rounded-xl p-5 flex items-start gap-4">
+                <i data-lucide="library" class="text-amber-500 w-8 h-8 flex-shrink-0 mt-1"></i>
+                <div>
+                    <h4 class="font-bold text-amber-900">Perpustakaan Templat PKD</h4>
+                    <p class="text-amber-800 text-sm mt-1">Daripada mencipta dokumen berulang kali dari sifar, gunakan Gemini untuk sumbang saran (brainstorm) dan membina perpustakaan templat standard jabatan anda. Satu prompt boleh menjimatkan berpuluh jam setahun.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Section: Keselamatan & Workflow -->
+    <section id="keselamatan" class="py-16 bg-white px-4 border-t border-slate-200">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            
+            <!-- Keselamatan -->
+            <div>
+                <h2 class="text-3xl font-bold mb-6 flex items-center gap-3">
+                    <i data-lucide="shield-check" class="text-green-500 w-10 h-10"></i> Keselamatan Fakta
+                </h2>
+                <p class="text-slate-600 mb-6">Dalam Kesihatan Awam, ketepatan fakta melibatkan nyawa dan reputasi. AI kadangkala melakukan 'Halusinasi' (fakta palsu).</p>
+                
+                <div class="space-y-4">
+                    <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r">
+                        <h4 class="font-bold text-red-900 flex items-center gap-2">
+                            <i data-lucide="alert-triangle" class="w-4 h-4"></i> Amaran Profesional
+                        </h4>
+                        <p class="text-sm text-red-800 mt-1">Jadikan AI sebagai Pembantu draf anda, bukan Pengganti kepakaran dan penilaian profesional anda.</p>
+                    </div>
+                    <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r">
+                        <h4 class="font-bold text-green-900 flex items-center gap-2">
+                            <i data-lucide="check-circle" class="w-4 h-4"></i> Penyelesaian: Ciri 'Double Check' (Ikon G)
+                        </h4>
+                        <p class="text-sm text-green-800 mt-1">Sentiasa klik ikon 'G' di bawah respons Gemini. Sistem akan mencari sumber internet untuk mengesahkan ayat (hijau jika sahih, oren jika tidak pasti).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Workflow Kitaran -->
+            <div class="bg-slate-50 p-8 rounded-3xl border border-slate-200 text-center">
+                <h3 class="text-xl font-bold mb-8">Kitaran Aliran Kerja Baharu PKD</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
+                        <div class="w-8 h-8 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center font-bold mb-2">1</div>
+                        <p class="text-sm font-semibold">Tulis Arahan</p>
+                        <p class="text-xs text-slate-500 mt-1">Guna formula 4 Tonggak.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
+                        <div class="w-8 h-8 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center font-bold mb-2">2</div>
+                        <p class="text-sm font-semibold">Jana (Generate)</p>
+                        <p class="text-xs text-slate-500 mt-1">Semak 3 variasi draf.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
+                        <div class="w-8 h-8 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center font-bold mb-2">3</div>
+                        <p class="text-sm font-semibold">Perhalusi</p>
+                        <p class="text-xs text-slate-500 mt-1">Betulkan nada/panjang teks.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex flex-col items-center text-center">
+                        <div class="w-8 h-8 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center font-bold mb-2">4</div>
+                        <p class="text-sm font-semibold">Laksana</p>
+                        <p class="text-xs text-slate-500 mt-1">Eksport terus ke Docs/Gmail.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer / Cabaran -->
+    <footer class="bg-slate-900 text-white py-12 px-4 border-t-4 border-teal-500">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="text-2xl font-bold text-center mb-8 text-teal-300">Langkah Seterusnya: Cabaran Produktiviti 24 Jam</h3>
+            
+            <div class="space-y-4 mb-10">
+                <label class="flex items-center gap-4 bg-slate-800 p-4 rounded-xl cursor-pointer hover:bg-slate-700 transition">
+                    <input type="checkbox" class="w-6 h-6 rounded border-slate-600 text-teal-500 focus:ring-teal-500 bg-slate-700">
+                    <span>Log masuk ke <strong>gemini.google.com</strong> menggunakan e-mel rasmi / Google Workspace anda hari ini.</span>
+                </label>
+                <label class="flex items-center gap-4 bg-slate-800 p-4 rounded-xl cursor-pointer hover:bg-slate-700 transition">
+                    <input type="checkbox" class="w-6 h-6 rounded border-slate-600 text-teal-500 focus:ring-teal-500 bg-slate-700">
+                    <span>Tulis satu prompt minimum 21 perkataan (guna formula 4 Tonggak) untuk membalas satu e-mel tertunggak.</span>
+                </label>
+                <label class="flex items-center gap-4 bg-slate-800 p-4 rounded-xl cursor-pointer hover:bg-slate-700 transition">
+                    <input type="checkbox" class="w-6 h-6 rounded border-slate-600 text-teal-500 focus:ring-teal-500 bg-slate-700">
+                    <span>Muat naik atau '@' tag satu dokumen tebal dan minta Gemini hasilkan ringkasan eksekutif.</span>
+                </label>
+            </div>
+
+            <div class="text-center border-t border-slate-700 pt-8 text-slate-400">
+                <p class="text-lg">"Kerja keras anda menjaga kesihatan komuniti sangat bernilai. Biar AI uruskan beban pentadbiran, supaya anda boleh fokus kepada kesihatan awam."</p>
+                <p class="mt-4 text-sm">&copy; 2026 Panduan Asas Google Gemini untuk Pentadbir Kesihatan.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
